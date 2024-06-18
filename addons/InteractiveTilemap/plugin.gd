@@ -3,7 +3,7 @@ extends EditorPlugin
 
 var _http : HTTPRequest = null
 var _version : String = ""
-var _url : String = "https://raw.githubusercontent.com/Healleu/ExtendedShape/main/addons/ExtendedShape/plugin.cfg"
+var _url : String = "https://raw.githubusercontent.com/Healleu/InteractiveTilemap/main/addons/InteractiveTilemap/plugin.cfg"
 
 func _enter_tree() -> void :
 	# Het plugin current version
@@ -17,7 +17,7 @@ func _enter_tree() -> void :
 	_http.request(_url)
 	
 	add_custom_type("InteractiveTilemap", "Tilemap", preload("interactive_tilemap.gd"), null)
-	print("Interactive Tilemap System initialized!")
+	print("Interactive Tilemap System v" + _version + " initialized!")
 	return
 
 
@@ -33,6 +33,7 @@ func _on_http_request_request_completed(result : int, response_code : int, heade
 	if err == OK :
 		var newest_version = config.get_value("plugin", "version")
 		config.clear()
+
 		if newest_version > _version :
 			print("New version of ExtendedShape is available!")
 			print("actual : " + _version + " / lastest : " + newest_version)
